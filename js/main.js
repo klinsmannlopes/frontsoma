@@ -46,7 +46,13 @@ $(function(){
             for(var k in e){
                 table += '<td>'+e[k].data+'</td>';
                 table += '<td>'+e[k].operacacao+'</td>';
-                table += '<td>'+e[k].valor+'</td></tr>';
+                if(e[k].valor > 0) {
+                    console.log();
+                    table += '<td class="text-success">'+e[k].valor+'</td></tr>';
+                } else {
+                    table += '<td class="text-danger">'+e[k].valor+'</td></tr>';
+                }
+                
             }
             table +='</tbody>';
             $('#extratos').html(table);
@@ -54,7 +60,6 @@ $(function(){
         });
         
         requestSaldo.done(function(e){
-            console.log(e);
 
             if(e > 0) {
                 var saldo = '<h2 >Saldo: R$ <span class="text-success"">'+e+'</span></h2>'
@@ -62,7 +67,6 @@ $(function(){
                 var saldo = '<h2 >Saldo: R$ <span class="text-danger">'+e+'</span></h2>'
             }
 
-            
             $('#saldo').html(saldo);
             
         });
@@ -71,7 +75,6 @@ $(function(){
     $("#funcionario").click(function() {
         
         requestList.done(function(e){
-            console.log(e);
             var table = '<thead class="thead-dark"><tr><th scope="col">Matrícula</th><th scope="col">Nome</th><th scope="col">Função</th></tr></thead><tbody>';
             for(var k in e){
                 table += '<td>'+e[k].matricula+'</td>';
